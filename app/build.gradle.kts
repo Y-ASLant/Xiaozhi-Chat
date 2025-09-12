@@ -3,34 +3,24 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
     namespace = "info.dourok.voicebot"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "info.dourok.voicebot"
         minSdk = 24
+        //noinspection OldTargetApi
         targetSdk = 35
-        versionCode = 20250615
+        versionCode = 20250616
         versionName = "1.0.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        externalNativeBuild {
-            cmake {
-                arguments += "-DANDROID_STL=c++_shared"
-                cppFlags  += "-std=c++17"
-            }
-        }
-        
-        ndk {
-            //noinspection ChromeOsAbiSupport
-            abiFilters += "arm64-v8a"
-        }
     }
 
     buildTypes {
@@ -51,13 +41,6 @@ android {
     }
     buildFeatures {
         compose = true
-        prefab = true
-    }
-    externalNativeBuild {
-        cmake {
-            path = file("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
-        }
     }
 
 }
